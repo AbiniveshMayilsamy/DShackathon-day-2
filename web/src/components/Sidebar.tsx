@@ -24,19 +24,19 @@ export const Sidebar: React.FC = () => {
   });
 
   return (
-    <aside className="w-64 bg-slate-900/90 backdrop-blur-xl border-r border-slate-800 flex flex-col shrink-0 min-h-screen">
-      <div className="p-6 border-b border-slate-800">
+    <aside className="w-64 bg-white/95 backdrop-blur-xl border-r border-slate-200 flex flex-col shrink-0 min-h-screen text-slate-800">
+      <div className="p-6 border-b border-slate-200">
         <NavLink to="/landing" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1px] shadow-md shadow-emerald-500/20 group-hover:scale-105 transition">
-            <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center font-bold text-emerald-400 text-lg">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1px] shadow-sm group-hover:scale-105 transition">
+            <div className="w-full h-full bg-white rounded-[11px] flex items-center justify-center font-bold text-emerald-600 text-lg">
               S
             </div>
           </div>
           <div>
-            <h1 className="font-extrabold text-slate-100 tracking-tight text-lg leading-tight font-heading group-hover:text-emerald-300 transition">
+            <h1 className="font-extrabold text-slate-900 tracking-tight text-lg leading-tight font-heading group-hover:text-emerald-600 transition">
               StockSense
             </h1>
-            <p className="text-[11px] text-slate-400 font-mono">Retail Intelligence</p>
+            <p className="text-[11px] text-slate-500 font-mono">Retail Intelligence</p>
           </div>
         </NavLink>
       </div>
@@ -121,17 +121,17 @@ export const Sidebar: React.FC = () => {
         </div>
       </nav>
 
-      <div className="p-4 border-t border-slate-800/80">
-        <div className="bg-slate-950/80 rounded-xl p-3 border border-slate-800 flex items-center justify-between">
+      <div className="p-4 border-t border-slate-200">
+        <div className="bg-slate-100/90 rounded-xl p-3 border border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span
               className={`w-2 h-2 rounded-full ${
-                health?.status === 'ok' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
+                health?.status === 'ok' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
               }`}
             />
-            <span className="text-xs text-slate-300 font-medium">FastAPI Engine</span>
+            <span className="text-xs text-slate-700 font-medium">FastAPI Engine</span>
           </div>
-          <span className="text-[11px] font-mono text-slate-400">
+          <span className="text-[11px] font-mono text-slate-500">
             {health?.status === 'ok' ? '8000 OK' : 'Connecting'}
           </span>
         </div>
