@@ -2,200 +2,267 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSummary, fetchHealth } from '../api/client';
-import Threads from '../components/Threads';
+
+const S = {
+  page:     { minHeight: '100vh', background: '#F8FAFC', fontFamily: "'IBM Plex Sans', sans-serif" } as React.CSSProperties,
+  wrap:     { maxWidth: 1200, margin: '0 auto', padding: '0 24px' } as React.CSSProperties,
+  mono:     { fontFamily: "'IBM Plex Mono', monospace" } as React.CSSProperties,
+};
 
 export const LandingPage: React.FC = () => {
-  const { data: summary } = useQuery({
-    queryKey: ['summary'],
-    queryFn: fetchSummary,
-  });
-
-  const { data: health } = useQuery({
-    queryKey: ['health'],
-    queryFn: fetchHealth,
-  });
+  const { data: summary } = useQuery({ queryKey: ['summary'], queryFn: fetchSummary });
+  const { data: health  } = useQuery({ queryKey: ['health'],  queryFn: fetchHealth  });
+  const isOnline = health?.status === 'ok';
 
   return (
-    <div className="relative min-h-screen bg-slate-50 text-slate-900 overflow-hidden">
-      {/* React Bits Threads Animated Green Waves */}
-      <div style={{ width: '100%', height: '600px', position: 'absolute', top: 0, left: 0, zIndex: 1, pointerEvents: 'auto' }}>
-        <Threads
-          amplitude={1}
-          distance={0}
-          enableMouseInteraction={true}
-          color={[0.06, 0.72, 0.45]} // Green color
-        />
-      </div>
-
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none z-0" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 lg:py-16 flex flex-col justify-between min-h-screen">
-        {/* Top Header Bar */}
-        <header className="flex items-center justify-between pb-8 border-b border-slate-800/80">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1px] shadow-lg shadow-emerald-500/20">
-              <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center font-black text-emerald-400 text-xl font-heading">
-                S
-              </div>
+    <div style={S.page}>
+      {/* ── Top header bar ── */}
+      <header style={{
+        borderBottom: '1px solid #E2E8F0',
+        background: '#ffffff',
+        position: 'sticky', top: 0, zIndex: 40,
+      }}>
+        <div style={{ ...S.wrap, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{
+              width: 30, height: 30, background: '#0F172A',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 3,
+            }}>
+              <span style={{ color: '#fff', fontWeight: 700, fontSize: 12, ...S.mono }}>SS</span>
             </div>
             <div>
-              <span className="font-extrabold text-xl tracking-tight text-white font-heading">StockSense</span>
-              <span className="text-xs text-emerald-400 block font-mono">v1.0 • Enterprise Edition</span>
+              <span style={{ fontWeight: 600, fontSize: 15, color: '#0F172A' }}>StockSense</span>
+              <span style={{ ...S.mono, fontSize: 11, color: '#94A3B8', marginLeft: 8 }}>v1.0 · Enterprise Edition</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-mono">
-              <span className={`w-2 h-2 rounded-full ${health?.status === 'ok' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
-              <span className="text-slate-300">API Status: {health?.status === 'ok' ? 'Online (Port 8000)' : 'Connecting...'}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {/* API status chip */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: '4px 10px', border: '1px solid #E2E8F0',
+              background: '#F8FAFC', borderRadius: 3,
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: isOnline ? '#059669' : '#D97706',
+              }} />
+              <span style={{ ...S.mono, fontSize: 11, color: '#475569' }}>
+                API: {isOnline ? 'Online · :8000' : 'Connecting...'}
+              </span>
             </div>
-            <Link
-              to="/admin"
-              className="px-4 py-1.5 text-xs font-medium rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition"
-            >
-              Admin Console →
+            <Link to="/admin" style={{
+              padding: '5px 12px', fontSize: 12, fontWeight: 500,
+              border: '1px solid #E2E8F0', borderRadius: 3,
+              background: '#ffffff', color: '#475569', textDecoration: 'none',
+              transition: 'background 0.1s',
+            }}>
+              Admin Console
             </Link>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Hero Section */}
-        <div className="py-12 lg:py-20 text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide animate-float">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            AI-Driven Retail Demand & Stock-Out Intelligence
+      {/* ── Hero ── */}
+      <section style={{ background: '#ffffff', borderBottom: '1px solid #E2E8F0' }}>
+        <div style={{ ...S.wrap, padding: '48px 24px 40px' }}>
+          {/* Breadcrumb-style label */}
+          <div style={{ ...S.mono, fontSize: 11, color: '#475569', marginBottom: 12, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+            NovaMart Retail Chain · AI Inventory Intelligence
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1] font-heading">
-            Predict Stockouts.<br />
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              Prescribe Perfect Orders.
-            </span>
+          <h1 style={{
+            fontSize: 32, fontWeight: 700, color: '#0F172A',
+            letterSpacing: '-0.02em', lineHeight: 1.2, margin: '0 0 12px',
+            maxWidth: 640,
+          }}>
+            Demand Forecasting &amp; Stockout Prevention
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            NovaMart loses up to <strong className="text-emerald-300 font-semibold">₹20.5 Lakhs</strong> to stock-outs across 5 hypermarkets.
-            StockSense forecasts 7-day demand, assigns calibrated risk scores, and generates automated, actionable purchase orders before shelves empty.
+          <p style={{ fontSize: 14, color: '#475569', maxWidth: 580, lineHeight: 1.6, margin: '0 0 24px' }}>
+            NovaMart loses up to{' '}
+            <strong style={{ color: '#0F172A', fontWeight: 600 }}>₹20.5 Lakhs</strong>{' '}
+            to stockouts across 5 hypermarkets. StockSense forecasts 7-day demand, assigns calibrated
+            risk scores, and generates automated purchase orders before shelves empty.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <Link
-              to="/actions"
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5"
-            >
-              Launch Action Centre →
+          {/* CTA row */}
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <Link to="/actions" style={{
+              padding: '9px 20px', fontSize: 13, fontWeight: 600,
+              background: '#2563EB', color: '#ffffff',
+              border: '1px solid #2563EB', borderRadius: 3, textDecoration: 'none',
+            }}>
+              Launch Action Centre
             </Link>
-            <Link
-              to="/pitch"
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-purple-600/25 transition-all transform hover:-translate-y-0.5"
-            >
-              🎤 5-Min Pitch Deck
+            <Link to="/pitch" style={{
+              padding: '9px 20px', fontSize: 13, fontWeight: 500,
+              background: '#ffffff', color: '#0F172A',
+              border: '1px solid #CBD5E1', borderRadius: 3, textDecoration: 'none',
+            }}>
+              Business Pitch Deck
             </Link>
-            <Link
-              to="/summary"
-              className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm border border-slate-300 transition shadow-sm"
-            >
+            <Link to="/summary" style={{
+              padding: '9px 20px', fontSize: 13, fontWeight: 500,
+              background: '#ffffff', color: '#0F172A',
+              border: '1px solid #CBD5E1', borderRadius: 3, textDecoration: 'none',
+            }}>
               Executive Summary
             </Link>
           </div>
         </div>
+      </section>
 
-        {/* 4 Live Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-8">
-          <div className="glass-card rounded-2xl p-5 border border-slate-800">
-            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Period Revenue</div>
-            <div className="text-2xl font-bold text-white font-heading">
-              {summary ? `₹${(summary.revenue / 10000000).toFixed(2)} Cr` : '₹4.23 Cr'}
-            </div>
-            <div className="text-[11px] text-emerald-400 mt-2 flex items-center gap-1">
-              <span>●</span> Verified clean across 153 days
-            </div>
-          </div>
-
-          <div className="glass-card rounded-2xl p-5 border border-slate-800">
-            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Stockout Recall</div>
-            <div className="text-2xl font-bold text-emerald-400 font-heading">75.95%</div>
-            <div className="text-[11px] text-slate-400 mt-2">
-              <strong className="text-emerald-300">+28.7% higher</strong> risk capture vs 59.0% baseline
-            </div>
-          </div>
-
-          <div className="glass-card rounded-2xl p-5 border border-slate-800">
-            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Demand Forecast MAE</div>
-            <div className="text-2xl font-bold text-cyan-400 font-heading">11.71 units</div>
-            <div className="text-[11px] text-slate-400 mt-2">
-              <strong className="text-cyan-300">+16.8% lower error</strong> vs 14.08 rolling mean
-            </div>
-          </div>
-
-          <div className="glass-card rounded-2xl p-5 border border-slate-800">
-            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">HIGH-Tier Accuracy</div>
-            <div className="text-2xl font-bold text-amber-400 font-heading">77.17%</div>
-            <div className="text-[11px] text-slate-400 mt-2">
-              622 test instances strictly calibrated
-            </div>
+      {/* ── KPI Strip ── */}
+      <section style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
+        <div style={{ ...S.wrap, padding: '0 24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0 }}>
+            {[
+              {
+                label: 'Period Revenue',
+                value: summary ? `₹${(summary.revenue / 10000000).toFixed(2)} Cr` : '₹4.23 Cr',
+                sub: 'All stores · 153 days',
+                flag: 'Verified',
+                flagColor: '#065F46',
+                flagBg: '#ECFDF5',
+              },
+              {
+                label: 'Stockout Recall',
+                value: '75.95%',
+                sub: '+28.7% vs 59.0% baseline',
+                flag: 'Model',
+                flagColor: '#1D4ED8',
+                flagBg: '#EFF6FF',
+              },
+              {
+                label: 'Demand MAE',
+                value: '11.71 units',
+                sub: '−16.8% error vs rolling mean',
+                flag: 'Regressor',
+                flagColor: '#1D4ED8',
+                flagBg: '#EFF6FF',
+              },
+              {
+                label: 'HIGH-Risk Accuracy',
+                value: '77.17%',
+                sub: '622 calibrated test instances',
+                flag: 'Calibrated',
+                flagColor: '#B45309',
+                flagBg: '#FFFBEB',
+              },
+            ].map((kpi, i) => (
+              <div key={i} style={{
+                padding: '20px 20px',
+                borderRight: i < 3 ? '1px solid #E2E8F0' : 'none',
+                background: '#ffffff',
+                borderTop: '1px solid #E2E8F0',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span style={{ ...S.mono, fontSize: 10, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+                    {kpi.label}
+                  </span>
+                  <span style={{
+                    ...S.mono, fontSize: 9, fontWeight: 600,
+                    color: kpi.flagColor, background: kpi.flagBg,
+                    padding: '1px 6px', borderRadius: 2,
+                  }}>
+                    {kpi.flag}
+                  </span>
+                </div>
+                <div style={{ ...S.mono, fontSize: 22, fontWeight: 600, color: '#0F172A', marginBottom: 4 }}>
+                  {kpi.value}
+                </div>
+                <div style={{ fontSize: 11, color: '#94A3B8' }}>{kpi.sub}</div>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Feature Grid */}
-        <div className="py-12 border-t border-slate-800/80">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-heading">Complete Decision System Architecture</h2>
-            <p className="text-sm text-slate-400 mt-2 max-w-xl mx-auto">
-              From raw transactions to prescriptive purchase orders, built strictly on time-split validation without data leakage.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link to="/actions" className="glass-card rounded-2xl p-6 border border-slate-800 hover:border-emerald-500/40 block group">
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg mb-4 group-hover:bg-emerald-500/20 transition">
-                ⚡
-              </div>
-              <h3 className="text-lg font-bold text-white font-heading group-hover:text-emerald-400 transition">
-                Action Centre & PO Engine
-              </h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Prioritized action cards ranked by <code className="text-emerald-300 font-mono text-[10px]">prob * forecast * price</code>. Automated safety stock reorder quantity calculation with 1-click CSV order list export.
-              </p>
-            </Link>
-
-            <Link to="/actions" className="glass-card rounded-2xl p-6 border border-slate-800 hover:border-cyan-500/40 block group">
-              <div className="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-lg mb-4 group-hover:bg-cyan-500/20 transition">
-                🎛️
-              </div>
-              <h3 className="text-lg font-bold text-white font-heading group-hover:text-cyan-400 transition">
-                What-If Scenario Sandbox
-              </h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Interactive real-time sliders for promotional discount %, supplier lead-time delay days, and festival demand spikes. Recalculates risk and orders on the fly.
-              </p>
-            </Link>
-
-            <Link to="/risk" className="glass-card rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/40 block group">
-              <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-lg mb-4 group-hover:bg-indigo-500/20 transition">
-                🗺️
-              </div>
-              <h3 className="text-lg font-bold text-white font-heading group-hover:text-indigo-400 transition">
-                Risk Matrix & Heatmap
-              </h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Store-by-category visual heatmap mapping high-risk SKU concentrations across 5 formats (Hypermarket, Supermarket, Express) with sortable risk probability tables.
-              </p>
-            </Link>
-          </div>
+      {/* ── Module Grid ── */}
+      <section style={{ ...S.wrap, padding: '32px 24px' }}>
+        <div style={{ marginBottom: 20 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, color: '#0F172A', margin: '0 0 4px' }}>
+            System Modules
+          </h2>
+          <p style={{ fontSize: 12, color: '#94A3B8', margin: 0 }}>
+            End-to-end pipeline from raw transactions to automated purchase orders, built on time-split validation without data leakage.
+          </p>
         </div>
 
-        {/* Footer */}
-        <footer className="pt-8 pb-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
-          <p>© 2026 StockSense. AI Retail Demand & Stock-Out Intelligence System.</p>
-          <div className="flex gap-4 mt-2 sm:mt-0 font-mono">
-            <span>FastAPI Backend :8000</span>
-            <span>•</span>
-            <span>React + Vite Client :5173</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: '#E2E8F0', border: '1px solid #E2E8F0' }}>
+          {[
+            {
+              to: '/actions',
+              label: 'Action Centre & PO Engine',
+              tag: 'Primary',
+              desc: 'Priority-ranked action cards scored by prob × forecast × price. Automated safety-stock reorder calculation with 1-click CSV export for warehouse procurement.',
+            },
+            {
+              to: '/actions',
+              label: 'What-If Scenario Sandbox',
+              tag: 'Interactive',
+              desc: 'Real-time sliders for promotional discount %, supplier lead-time delay, and festival demand spikes. Recalculates risk and order quantities in under 15ms.',
+            },
+            {
+              to: '/risk',
+              label: 'Risk Matrix & Heatmap',
+              tag: 'Analytics',
+              desc: 'Store-by-category heatmap mapping high-risk SKU concentrations across 5 store formats. Sortable risk probability tables with monotonic tier calibration.',
+            },
+            {
+              to: '/demand',
+              label: 'Demand Forecast',
+              tag: 'ML',
+              desc: '7-day SKU-level demand forecasts from XGBoost regressor on 37 temporal features. Beats rolling-mean baseline by 16.8% MAE reduction.',
+            },
+            {
+              to: '/performance',
+              label: 'Model Telemetry',
+              tag: 'Audit',
+              desc: 'Full validation and test metrics, confusion matrix, ROC curve, Brier score, and permutation feature importances grouped by domain.',
+            },
+            {
+              to: '/explain',
+              label: 'Root Cause Analysis',
+              tag: 'Explainability',
+              desc: 'Per-SKU driver breakdown: supplier lead time, promotional lift, weather impact, and inventory drift with statistical evidence for each flag.',
+            },
+          ].map((m, i) => (
+            <Link key={i} to={m.to} style={{ textDecoration: 'none', display: 'block', background: '#ffffff', padding: '16px 18px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#0F172A' }}>{m.label}</span>
+                <span style={{
+                  ...S.mono, fontSize: 9, fontWeight: 600,
+                  color: '#1D4ED8', background: '#EFF6FF',
+                  padding: '1px 6px', borderRadius: 2,
+                }}>
+                  {m.tag}
+                </span>
+              </div>
+              <p style={{ fontSize: 12, color: '#64748B', lineHeight: 1.5, margin: 0 }}>{m.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer style={{
+        borderTop: '1px solid #E2E8F0', background: '#ffffff',
+        padding: '14px 24px',
+      }}>
+        <div style={{ ...S.wrap, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: '#94A3B8' }}>
+            © 2026 StockSense · AI Retail Demand & Stock-Out Intelligence
+          </span>
+          <div style={{ ...S.mono, fontSize: 10, color: '#CBD5E1', display: 'flex', gap: 16 }}>
+            <span>FastAPI :8000</span>
+            <span>React + Vite :5173</span>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 };
+
+export default LandingPage;

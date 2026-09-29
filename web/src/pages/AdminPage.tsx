@@ -36,15 +36,15 @@ export const AdminPage: React.FC = () => {
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-mono mb-2 border border-purple-500/20">
-            System Administration & Telemetry
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#475569', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 6 }}>
+            System Administration &amp; Telemetry
           </div>
-          <h1 className="text-3xl font-extrabold text-white font-heading">Platform Governance Console</h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <h1 className="text-2xl font-semibold text-slate-900">Platform Governance Console</h1>
+          <p className="text-sm text-slate-500 mt-1">
             Real-time pipeline diagnostics, model registry verification, data quality audits, and endpoint telemetry.
           </p>
         </div>
@@ -54,14 +54,15 @@ export const AdminPage: React.FC = () => {
             href="http://127.0.0.1:8000/docs"
             target="_blank"
             rel="noreferrer"
-            className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-2"
+            className="px-4 py-2 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium border border-slate-200 transition flex items-center gap-2"
           >
-            <span>Interactive OpenAPI Docs ↗</span>
+            <span>OpenAPI Docs ↗</span>
           </a>
           <a
             href={getExportOrdersUrl()}
             download="orders.csv"
-            className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition flex items-center gap-2"
+            className="px-4 py-2 rounded text-white text-xs font-semibold transition flex items-center gap-2"
+            style={{ background: '#2563EB', border: '1px solid #2563EB' }}
           >
             <span>Export Orders CSV ↓</span>
           </a>
@@ -69,72 +70,63 @@ export const AdminPage: React.FC = () => {
       </div>
 
       {/* System Status Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="glass-card rounded-xl p-5 border border-slate-800">
-          <div className="text-xs font-mono text-slate-400 uppercase">FastAPI Engine</div>
-          <div className="mt-2 flex items-center gap-2">
-            <span className={`w-3 h-3 rounded-full ${health?.status === 'ok' ? 'bg-emerald-400 animate-pulse' : 'bg-red-400'}`} />
-            <span className="text-xl font-bold text-white">
-              {healthLoading ? 'Checking...' : health?.status === 'ok' ? 'Healthy' : 'Disconnected'}
-            </span>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-px" style={{ background: '#E2E8F0', border: '1px solid #E2E8F0' }}>
+        {[
+          {
+            label: 'FastAPI Engine',
+            value: healthLoading ? 'Checking…' : health?.status === 'ok' ? 'Healthy' : 'Disconnected',
+            sub: 'Port: 8000 · Host: 127.0.0.1',
+            dot: health?.status === 'ok',
+          },
+          { label: 'Master Dataset Grain', value: '19,714 rows', sub: 'date × store_id × product_id', dot: null },
+          { label: 'Live Inference Scope',  value: '143 Active SKUs', sub: 'Date: 2026-09-30', dot: null },
+          { label: 'Model Registry',        value: 'Dual XGBoost', sub: 'Joblib · Calibrated', dot: null },
+        ].map((card, i) => (
+          <div key={i} style={{ background: '#ffffff', padding: '16px 18px' }}>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>
+              {card.label}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {card.dot !== null && (
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: card.dot ? '#059669' : '#DC2626', flexShrink: 0 }} />
+              )}
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, fontWeight: 600, color: '#0F172A' }}>
+                {card.value}
+              </span>
+            </div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#94A3B8', marginTop: 6 }}>{card.sub}</div>
           </div>
-          <p className="text-[11px] text-slate-400 mt-2 font-mono">Port: 8000 • Host: 127.0.0.1</p>
-        </div>
-
-        <div className="glass-card rounded-xl p-5 border border-slate-800">
-          <div className="text-xs font-mono text-slate-400 uppercase">Master Dataset Grain</div>
-          <div className="mt-2 text-xl font-bold text-white font-heading">
-            {summary ? '19,714 Rows' : '19,714 Rows'}
-          </div>
-          <p className="text-[11px] text-slate-400 mt-2 font-mono">date × store_id × product_id</p>
-        </div>
-
-        <div className="glass-card rounded-xl p-5 border border-slate-800">
-          <div className="text-xs font-mono text-slate-400 uppercase">Live Inference Scope</div>
-          <div className="mt-2 text-xl font-bold text-emerald-400 font-heading">
-            143 Active SKUs
-          </div>
-          <p className="text-[11px] text-slate-400 mt-2 font-mono">Date: 2026-09-30 (True Latest)</p>
-        </div>
-
-        <div className="glass-card rounded-xl p-5 border border-slate-800">
-          <div className="text-xs font-mono text-slate-400 uppercase">Model Registry</div>
-          <div className="mt-2 text-xl font-bold text-cyan-400 font-heading">
-            Dual XGBoost
-          </div>
-          <p className="text-[11px] text-slate-400 mt-2 font-mono">Joblib Serialized + Calibrated</p>
-        </div>
+        ))}
       </div>
 
       {/* Traps & Data Quality Audit Table */}
-      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-        <div className="flex items-center justify-between">
+      <div style={{ background: '#ffffff', border: '1px solid #E2E8F0', padding: '16px 20px' }}>
+        <div className="flex items-center justify-between" style={{ marginBottom: 14 }}>
           <div>
-            <h2 className="text-lg font-bold text-white font-heading">Data Quality & Trap Remediation Audit</h2>
-            <p className="text-xs text-slate-400">Verification of all 6 synthetic data anomalies resolved during Phase 1 cleaning.</p>
+            <h2 style={{ fontSize: 14, fontWeight: 600, color: '#0F172A', margin: '0 0 3px' }}>Data Quality &amp; Trap Remediation Audit</h2>
+            <p style={{ fontSize: 12, color: '#94A3B8', margin: 0 }}>Verification of all 6 synthetic data anomalies resolved during Phase 1 cleaning.</p>
           </div>
-          <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono border border-emerald-500/20">
-            6/6 Traps Neutralized
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 600, color: '#065F46', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: 2 }}>
+            6 / 6 Traps Resolved
           </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 font-mono">
-                <th className="py-2.5 px-3">Anomaly Trap</th>
-                <th className="py-2.5 px-3">Source File</th>
-                <th className="py-2.5 px-3">Incidence Detected</th>
-                <th className="py-2.5 px-3">Cleaning & Defensive Logic</th>
+              <tr style={{ borderBottom: '1px solid #E2E8F0' }}>
+                {['Anomaly Trap', 'Source File', 'Incidence Detected', 'Cleaning & Defensive Logic'].map(h => (
+                  <th key={h} style={{ padding: '8px 10px', textAlign: 'left', fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody>
               {trapAudits.map((t, idx) => (
-                <tr key={idx} className="hover:bg-slate-800/30 transition">
-                  <td className="py-2.5 px-3 font-semibold text-white">{t.name}</td>
-                  <td className="py-2.5 px-3 font-mono text-slate-400">{t.file}</td>
-                  <td className="py-2.5 px-3 text-amber-300 font-mono">{t.found}</td>
-                  <td className="py-2.5 px-3 text-slate-300">{t.action}</td>
+                <tr key={idx} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                  <td style={{ padding: '8px 10px', fontWeight: 600, color: '#0F172A' }}>{t.name}</td>
+                  <td style={{ padding: '8px 10px', fontFamily: "'IBM Plex Mono', monospace", color: '#64748B' }}>{t.file}</td>
+                  <td style={{ padding: '8px 10px', fontFamily: "'IBM Plex Mono', monospace", color: '#B45309' }}>{t.found}</td>
+                  <td style={{ padding: '8px 10px', color: '#475569' }}>{t.action}</td>
                 </tr>
               ))}
             </tbody>
@@ -143,32 +135,34 @@ export const AdminPage: React.FC = () => {
       </div>
 
       {/* REST API Endpoints Catalog */}
-      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-        <div className="flex items-center justify-between">
+      <div style={{ background: '#ffffff', border: '1px solid #E2E8F0', padding: '16px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div>
-            <h2 className="text-lg font-bold text-white font-heading">Production REST API Catalog</h2>
-            <p className="text-xs text-slate-400">All 9 verified endpoints powering the StockSense decision frontend.</p>
+            <h2 style={{ fontSize: 14, fontWeight: 600, color: '#0F172A', margin: '0 0 3px' }}>Production REST API Catalog</h2>
+            <p style={{ fontSize: 12, color: '#94A3B8', margin: 0 }}>All 9 verified endpoints powering the StockSense decision frontend.</p>
           </div>
-          <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 600, color: '#475569', background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '2px 8px', borderRadius: 2 }}>
             9 Endpoints Active
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: '#E2E8F0' }}>
           {endpoints.map((ep, idx) => (
-            <div key={idx} className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-start justify-between gap-3 hover:border-slate-700 transition">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded font-mono ${
-                    ep.method === 'GET' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                  }`}>
-                    {ep.method}
-                  </span>
-                  <span className="font-mono text-xs text-white font-semibold">{ep.path}</span>
+            <div key={idx} style={{ background: '#ffffff', padding: '10px 12px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 4 }}>
+                  <span style={{
+                    fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 700,
+                    padding: '1px 5px', borderRadius: 2,
+                    background: ep.method === 'GET' ? '#EFF6FF' : '#ECFDF5',
+                    color: ep.method === 'GET' ? '#1D4ED8' : '#065F46',
+                    border: `1px solid ${ep.method === 'GET' ? '#BFDBFE' : '#A7F3D0'}`,
+                  }}>{ep.method}</span>
+                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 600, color: '#0F172A' }}>{ep.path}</span>
                 </div>
-                <p className="text-[11px] text-slate-400 leading-tight">{ep.desc}</p>
+                <p style={{ fontSize: 11, color: '#64748B', margin: 0 }}>{ep.desc}</p>
               </div>
-              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 shrink-0">
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 600, color: '#065F46', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: 2, flexShrink: 0 }}>
                 {ep.status}
               </span>
             </div>

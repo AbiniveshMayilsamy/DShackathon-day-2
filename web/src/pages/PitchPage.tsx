@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const PitchPage: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [activeTab, setActiveTab] = useState<'slides' | 'script' | 'qa'>('slides');
+  const [activeTab, setActiveTab] = useState<'slides' | 'qa'>('slides');
 
   const slides = [
     {
@@ -145,34 +145,6 @@ export const PitchPage: React.FC = () => {
     },
   ];
 
-  const script = [
-    {
-      time: '0:00 – 0:30',
-      title: '1. The Problem',
-      text: '"Judges, every empty shelf is lost revenue that never comes back, and every overstocked shelf locks up working capital. In NovaMart\'s 5 stores, shelves run out of stock 8.56% of the time, bleeding over ₹14.5 Lakhs—and likely over ₹20 Lakhs—in lost sales over 5 months. Managers currently decide by gut feeling. StockSense tells each manager, every morning: which products will run out, how likely it is, how much to reorder, and why."',
-    },
-    {
-      time: '0:30 – 1:30',
-      title: '2. What the Data Found',
-      text: '"Before training models, statistical tests revealed three critical operational facts: First, promotions lift volume by 1.35x (p < 10⁻¹⁵), stripping shelves bare if orders aren\'t scaled in advance. Second, Hypermarkets sell 1.45x the chain average while Express stores sell 0.70x, so one-size-fits-all rules fail. Third, supplier lead time is the biggest stock-out driver: a 1-day lead time stocks out 10% of the time, but a 4-day lead time stocks out 66% of the time."',
-    },
-    {
-      time: '1:30 – 2:30',
-      title: '3. What We Predict (Dual ML Engine)',
-      text: '"We built a Dual XGBoost Engine strictly split on future dates with 7-day anti-leakage buffers: Model 1 forecasts 7-day demand with 11.71 MAE—a 17% error reduction over current methods. Model 2 evaluates stock-out probability, capturing 75.95% of real stockouts compared to 59.02% for standard reorder rules (a 28.7% lift, AUC 0.84). Our tiers are honest: items we flag as HIGH actually stocked out 77% of the time, MEDIUM 50%, and LOW only 14%."',
-    },
-    {
-      time: '2:30 – 3:45',
-      title: '4. Prescriptive Action & Live Demo',
-      text: '"StockSense doesn\'t just predict—it prescribes. In the Action Centre, cards are ranked by financial urgency: Probability × Forecast × Price. Recommended order quantities dynamically incorporate lead-time safety stock. When planners use the What-If sliders to simulate a 2-day supplier delay, order quantities update instantly. Managers click \'Export Order List\' and download a supplier-ready purchase order CSV in one second."',
-    },
-    {
-      time: '3:45 – 5:00',
-      title: '5. Impact, Honesty & Next Steps',
-      text: '"StockSense protects NovaMart\'s ₹4.23 Cr revenue base and reclaims the ₹14.5L lost to empty shelves. We practice operational honesty: our data is synthetic, in-transit stock was assumed zero, and new products use store-category fallback averages. The backend runs on high-performance FastAPI, passes 10/10 unit tests, and the pipeline runs on real enterprise data with zero code modifications. We are ready for your questions."',
-    },
-  ];
-
   const qa = [
     {
       q: 'Is the data real?',
@@ -216,7 +188,7 @@ export const PitchPage: React.FC = () => {
             StockSense: 5-Minute Executive Pitch
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Complete presentation slides, word-for-word timed script, and stakeholder due diligence.
+            Complete presentation slides and stakeholder due diligence Q&A.
           </p>
         </div>
 
@@ -232,16 +204,7 @@ export const PitchPage: React.FC = () => {
           >
             📊 8-Slide Pitch Deck
           </button>
-          <button
-            onClick={() => setActiveTab('script')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
-              activeTab === 'script'
-                ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            🎙️ Spoken Script (5 Min)
-          </button>
+
           <button
             onClick={() => setActiveTab('qa')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
@@ -336,32 +299,7 @@ export const PitchPage: React.FC = () => {
         </div>
       )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          TAB 2: 5-MINUTE SPOKEN SCRIPT
-          ───────────────────────────────────────────────────────────── */}
-      {activeTab === 'script' && (
-        <div className="space-y-6">
-          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
-            <strong>Rehearsal Guidance:</strong> Speak at an energetic, conversational pace (approx. 130 words/min). Practice with a timer to ensure you hit the 4:45 mark, leaving 15 seconds for clean transition to live Q&A.
-          </div>
 
-          <div className="space-y-4">
-            {script.map((s, idx) => (
-              <div key={idx} className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-3 bg-white">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-extrabold text-slate-900 font-heading">{s.title}</h3>
-                  <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-mono text-xs font-bold">
-                    ⏱ {s.time}
-                  </span>
-                </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 leading-relaxed italic font-serif">
-                  {s.text}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ─────────────────────────────────────────────────────────────
           TAB 3: STAKEHOLDER DUE DILIGENCE & FAQ

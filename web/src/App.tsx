@@ -11,7 +11,7 @@ import { PerformancePage } from './pages/PerformancePage';
 import { ExplainPage } from './pages/ExplainPage';
 import { AdminPage } from './pages/AdminPage';
 import { PitchPage } from './pages/PitchPage';
-import { ExplainerModal } from './components/ExplainerModal';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +43,7 @@ export const App: React.FC = () => {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
-          <ExplainerModal />
+
         </div>
       </BrowserRouter>
     </QueryClientProvider>
