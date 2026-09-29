@@ -6,6 +6,7 @@ import {
   getExportOrdersUrl,
 } from '../api/client';
 import type { PredictionItem, WhatIfResponse } from '../api/client';
+import { openExplainer } from '../components/ExplainerModal';
 
 
 export const ActionsPage: React.FC = () => {
@@ -104,10 +105,17 @@ export const ActionsPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          <button
+            onClick={openExplainer}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm shadow-md transition cursor-pointer"
+          >
+            <span>💡</span>
+            <span>EXPLAIN: WHAT • WHY • HOW</span>
+          </button>
           <a
             href={getExportOrdersUrl()}
             download="orders.csv"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-colors shadow-sm border border-slate-700"
           >
             <svg
               className="w-4 h-4"
