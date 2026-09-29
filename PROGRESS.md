@@ -4,7 +4,7 @@ Model/agent last used: Antigravity (Gemini 3.8 Flash)
 
 ## Done
 - (Phase 0: Synthetic dataset generated with seed 42, files: `src/make_dataset.py`, `data/raw/*.csv`, `reports/planted_traps.csv`)
-- (Phase 1: Cleaned data, resolved ID whitespace/casing, filtered invalid quantities, imputed weather medians, flagged inventory mismatches, aggregated sales, joined onto inventory grain, exported `data/processed/master.csv` [19714, 35] and `reports/data_quality.csv`)
+- (Phase 1: Cleaned data, resolved ID whitespace/casing, filtered 750 negative-quantity transaction rows [744 unique planted + 6 duplicated], imputed weather medians, flagged inventory mismatches, aggregated sales, joined onto inventory grain, exported `data/processed/master.csv` [19714, 35] and `reports/data_quality.csv`)
 - (Phase 2: EDA, 3 statistical tests in `reports/stats_tests.csv`, 7 business KPIs in `reports/kpis.json`, 7 figures in `reports/figures/`, lost sales gap: -29.32% underestimated)
 - (Phase 3: Engineered strict temporal features via `build_features(df, with_target=True)` in `src/features.py`, 70/15/15 time split with 7-day anti-leakage buffers, exported `data/processed/features.parquet` [16921, 59], passed 5/5 leakage & target alignment tests)
 - (Phase 4: Trained Model 1 [Demand: XGBoost, Test MAE=11.71 vs Baseline=14.08] and Model 2 [Stockout: XGBoost, Test Recall=0.7595 vs Baseline=0.5902, ROC-AUC=0.8358 vs Baseline=0.6017], verified tier calibration, saved `models/*.joblib`, `models/metrics.json`, `reports/model_comparison.csv`)
@@ -22,7 +22,7 @@ Model/agent last used: Antigravity (Gemini 3.8 Flash)
 - inference scope: 143 active store x product combinations on true latest date (2026-09-30)
 - risk tier breakdown: 61 LOW (42.7%), 44 MEDIUM (30.8%), 38 HIGH (26.6%)
 - low_history products (P138, P139, P140): preserved in predictions with `confidence="low"` and category-store mean demand fallback
-- API validation: 10/10 endpoints returning 200 OK; `/whatif` scales reorder quantity (+24 units) and probability (+23.9%) under 2-day supplier disruption
+- API validation: 9/9 REST endpoints returning 200 OK (covered by 10 unit tests); `/whatif` scales reorder quantity (+24 units) and probability (+23.9%) under 2-day supplier disruption
 - Phase 7a/7b frontend: `npm run build` succeeds (0 errors in 573ms), dev server loads live data on port 5173
 - Real page values verified: Summary revenue=₹4.23Cr, Dairy=29.48%; Risk 38 HIGH items; Demand MAE=11.71; Performance tier LOW=13.6%, MED=49.8%, HIGH=77.2%; Explain top group=Inventory Coverage (0.2255)
 - Packaging: 3 executed notebooks (`01_cleaning_eda.ipynb`, `02_features_models.ipynb`, `03_explain_results.ipynb`) loading saved artifacts only, `src/run_all.py` pipeline runtime: 48.4s
