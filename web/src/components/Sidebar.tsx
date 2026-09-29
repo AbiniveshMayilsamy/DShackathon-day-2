@@ -15,6 +15,7 @@ const navItems = [
 ];
 
 const adminItem = { path: '/admin', label: 'Admin Console', tag: 'Ops' };
+const pitchItem = { path: '/pitch', label: 'Business Pitch', tag: '5-Min' };
 
 export const Sidebar: React.FC = () => {
   const { data: health } = useQuery({
@@ -114,8 +115,27 @@ export const Sidebar: React.FC = () => {
               <span className="text-xs">⚙️</span>
               <span>{adminItem.label}</span>
             </div>
-            <span className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-purple-500/15 text-purple-300 border border-purple-500/25">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-purple-500/15 text-purple-700 border border-purple-500/25">
               {adminItem.tag}
+            </span>
+          </NavLink>
+
+          <NavLink
+            to={pitchItem.path}
+            className={({ isActive }) =>
+              `flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? 'bg-emerald-500/20 text-emerald-800 border border-emerald-500/30 shadow-sm font-bold'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+              }`
+            }
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-xs">🎤</span>
+              <span>{pitchItem.label}</span>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-emerald-600 text-white font-bold">
+              {pitchItem.tag}
             </span>
           </NavLink>
         </div>

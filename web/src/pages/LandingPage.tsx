@@ -87,16 +87,16 @@ export const LandingPage: React.FC = () => {
               Launch Action Centre →
             </Link>
             <Link
-              to="/summary"
-              className="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-semibold text-sm border border-slate-700/80 transition"
+              to="/pitch"
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-purple-600/25 transition-all transform hover:-translate-y-0.5"
             >
-              Executive Summary
+              🎤 5-Min Pitch Deck
             </Link>
             <Link
-              to="/admin"
-              className="px-6 py-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-800/80 text-slate-300 font-semibold text-sm border border-slate-800 transition"
+              to="/summary"
+              className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm border border-slate-300 transition shadow-sm"
             >
-              System Telemetry
+              Executive Summary
             </Link>
           </div>
         </div>
