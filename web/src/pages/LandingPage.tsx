@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSummary, fetchHealth } from '../api/client';
+import Threads from '../components/Threads';
 
 export const LandingPage: React.FC = () => {
   const { data: summary } = useQuery({
@@ -15,14 +16,19 @@ export const LandingPage: React.FC = () => {
   });
 
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 overflow-hidden">
-      {/* React Bits Aurora Glow Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-500/15 blur-[120px] pointer-events-none animate-aurora" />
-      <div className="absolute top-[20%] right-[-5%] w-[450px] h-[450px] rounded-full bg-cyan-500/15 blur-[130px] pointer-events-none animate-aurora" style={{ animationDelay: '-6s' }} />
-      <div className="absolute bottom-[-10%] left-[25%] w-[600px] h-[500px] rounded-full bg-indigo-500/10 blur-[140px] pointer-events-none animate-aurora" style={{ animationDelay: '-12s' }} />
+    <div className="relative min-h-screen bg-slate-50 text-slate-900 overflow-hidden">
+      {/* React Bits Threads Animated Green Waves */}
+      <div style={{ width: '100%', height: '600px', position: 'absolute', top: 0, left: 0, zIndex: 1, pointerEvents: 'auto' }}>
+        <Threads
+          amplitude={1}
+          distance={0}
+          enableMouseInteraction={true}
+          color={[0.06, 0.72, 0.45]} // Green color
+        />
+      </div>
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 lg:py-16 flex flex-col justify-between min-h-screen">
         {/* Top Header Bar */}
