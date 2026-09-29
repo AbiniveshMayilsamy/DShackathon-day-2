@@ -1,0 +1,13 @@
+task,model,MAE,RMSE,MAPE,R2,split,notes,Accuracy,Precision,Recall,F1,ROC_AUC,Brier
+Demand Regression,Baseline (Rolling Mean 7x7),14.08,18.95,12.73,0.9564,test,Simple heuristic baseline of 7x recent rolling mean,,,,,,
+Demand Regression,Linear Regression,37263.23,616207.18,103908.61,-46052495.1711,test,Candidate model evaluated on test set,,,,,,
+Demand Regression,Decision Tree,13.52,18.53,11.57,0.9584,test,Candidate model evaluated on test set,,,,,,
+Demand Regression,Random Forest,12.02,16.59,10.56,0.9666,test,Candidate model evaluated on test set,,,,,,
+Demand Regression,XGBoost,11.71,16.1,10.53,0.9686,test,Selected on validation MAE,,,,,,
+Demand Regression,KNN,16.6,23.12,15.13,0.9352,test,Candidate model evaluated on test set,,,,,,
+Stockout Classification,Baseline (closing < reorder_lvl),,,,,test,Simple inventory rule baseline,0.6038,0.5126,0.5902,0.5487,0.6017,
+Stockout Classification,Random Forest,,,,,test,Candidate classifier,0.7492,0.6744,0.745,0.7079,0.8306,0.1646
+Stockout Classification,XGBoost,,,,,test,Selected (Standard),0.7442,0.6628,0.7595,0.7078,0.8358,0.1638
+Stockout Classification,Decision Tree,,,,,test,Candidate classifier,0.7101,0.6277,0.7116,0.667,0.8089,0.1892
+Stockout Classification,KNN,,,,,test,Candidate classifier,0.7033,0.6804,0.5145,0.5859,0.7585,0.1959
+Stockout Classification,Naive Bayes,,,,,test,Candidate classifier,0.6856,0.6089,0.6414,0.6247,0.717,0.2633

@@ -1,0 +1,9 @@
+issue,count,action,justification
+whitespace_casing_ids,5,Stripped whitespace and converted to uppercase,Inconsistent ID casing and whitespace cause false join misses
+duplicate_transactions,2482,Deduplicated rows,Exact duplicate point-of-sale logs inflate sales volume
+category_casing_variants,10,Mapped to standardized title case,Inconsistent casing/spelling fragments category-level aggregations
+negative_quantities,744,Flagged invalid_qty=1 and excluded from demand sums,"Negative/zero quantities represent returns/errors, not true sales demand"
+missing_temp_c,15,Imputed city-wise median,Missing sensor data filled with localized central tendency
+missing_rain_mm,7,Imputed city-wise median,Missing rainfall readings filled with localized central tendency
+inventory_arithmetic_mismatch,295,Flagged inv_mismatch=1; adjusted closing if diff <= 2,Preserves audit trail while smoothing minor counting errors for modeling
+sparse_history_products,3,Flagged low_history=1 without dropping,New product introductions require fallback category baseline forecasts

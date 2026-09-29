@@ -1,0 +1,9 @@
+trap_name,file,count,description
+negative_quantities,transactions.csv,744,Negative transaction quantities
+duplicate_transactions,transactions.csv,2482,Identical transaction rows
+category_casing_variants,products.csv,10,Variant casing/misnomers/whitespace in category
+missing_temp_c,external_factors.csv,15,Missing temp_c values
+missing_rain_mm,external_factors.csv,7,Missing rain_mm values
+inventory_arithmetic_mismatch,inventory.csv,295,closing != opening + received - sold
+whitespace_casing_ids,multiple,5,Stray whitespace or lowercase IDs
+sparse_history_products,products.csv,3,"Products with < 14 days history (P138, P139, P140)"

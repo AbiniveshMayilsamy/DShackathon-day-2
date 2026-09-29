@@ -1,0 +1,6 @@
+store_id,city,store_type,floor_area_sqft,avg_daily_customers,region
+ s01 ,Coimbatore,Supermarket,15000,1200,South
+S02,Chennai,Hypermarket,35000,2800,South
+S03,Madurai,Supermarket,12000,950,South
+S04,Salem,Express,5000,600,South
+S05,Trichy,Supermarket,14000,1100,South

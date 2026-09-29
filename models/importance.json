@@ -1,0 +1,32 @@
+[
+  {
+    "group": "inventory_cover",
+    "label": "Inventory Coverage & Stock Buffer",
+    "importance": 0.218
+  },
+  {
+    "group": "store_product_static",
+    "label": "Store Assortment & Product Characteristics",
+    "importance": 0.0348
+  },
+  {
+    "group": "recent_sales",
+    "label": "Recent Demand Momentum & Rolling Trends",
+    "importance": 0.0243
+  },
+  {
+    "group": "calendar",
+    "label": "Upcoming Weekend & Holiday Signals",
+    "importance": 0.0034
+  },
+  {
+    "group": "promotion_price",
+    "label": "Price Discount & Active Promotions",
+    "importance": 0.001
+  },
+  {
+    "group": "weather",
+    "label": "Local Weather Variations",
+    "importance": 0.001
+  }
+]

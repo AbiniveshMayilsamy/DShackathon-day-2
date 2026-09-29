@@ -1,0 +1,20 @@
+[
+  {
+    "risk_tier": "LOW",
+    "row_count": 1019,
+    "actual_stockout_rate": 0.1364082433758587,
+    "pct_share": 46.297137664697864
+  },
+  {
+    "risk_tier": "MEDIUM",
+    "row_count": 560,
+    "actual_stockout_rate": 0.4982142857142857,
+    "pct_share": 25.442980463425712
+  },
+  {
+    "risk_tier": "HIGH",
+    "row_count": 622,
+    "actual_stockout_rate": 0.7717041800643086,
+    "pct_share": 28.25988187187642
+  }
+]

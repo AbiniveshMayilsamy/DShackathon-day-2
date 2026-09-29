@@ -1,0 +1,41 @@
+# StockSense .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Secrets / credentials
+*.key
+*.pem
+
+# Keep these (do NOT ignore):
+# data/raw/     - original CSVs (read-only)
+# data/processed/ - master.csv, features.parquet, predictions.parquet
+# models/       - trained joblib + metrics.json
+# reports/      - figures, stats, KPIs

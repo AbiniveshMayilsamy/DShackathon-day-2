@@ -1,0 +1,41 @@
+product_id,category,sub_category,brand,mrp,cost_price,shelf_life_days,supplier_id
+ p101,Dairy,Curd & Paneer,Aura,33.75,26.38,4,SUP03
+P102,Dairy,Curd & Paneer,Aura,118.57,96.7,3,SUP04
+P103,dairy,Curd & Paneer,NovaFresh,114.19,82.19,7,SUP07
+P104,Dairy,Curd & Paneer,SunHarvest,151.41,124.02,4,SUP07
+P105, Dairy ,Milk,DailyBest,173.58,134.16,3,SUP07
+P106 ,Dairy,Butter & Cheese,SunHarvest,151.07,108.44,7,SUP02
+P107,Dairy,Butter & Cheese,Aura,112.81,79.41,7,SUP06
+P108,Beverages,Tea & Coffee,Aura,33.94,26.75,97,SUP02
+P109,beverage,Juices,FarmPride,79.2,57.9,106,SUP03
+P110,Beverages,Juices,SunHarvest,161.85,117.23,69,SUP03
+P111,Beverages,Juices,PureLife,115.14,90.06,178,SUP04
+P112,BEVERAGES,Juices,DailyBest,185.25,131.03,111,SUP05
+P113, Beverages ,Tea & Coffee,ClassicChoice,66.46,49.85,173,SUP08
+P114,Snacks,Biscuits,DailyBest,93.22,69.41,239,SUP07
+P115,Snacks,Chips & Namkeen,ClassicChoice,38.03,25.87,220,SUP08
+P116,snack,Biscuits,Aura,31.05,24.77,198,SUP02
+P117,Snacks,Chocolates,KisanGold,70.56,48.27,92,SUP02
+P118,Snacks,Chocolates,SunHarvest,95.7,73.92,165,SUP07
+P119,Snacks ,Biscuits,SunHarvest,117.05,83.49,219,SUP02
+P120,Snacks,Chips & Namkeen,DailyBest,31.05,22.15,228,SUP01
+P121,Personal Care,Hair Care,NovaFresh,79.12,60.86,522,SUP04
+P122,Personal Care,Oral Care,Aura,71.12,53.48,400,SUP03
+P123,Personal Care,Hair Care,PureLife,125.84,87.82,581,SUP04
+P124,Personal Care,Oral Care,DailyBest,262.45,200.55,708,SUP06
+P125,house hold,Oral Care,KisanGold,81.91,64.59,538,SUP01
+P126,Household,Detergents,DailyBest,62.8,45.27,395,SUP04
+P127,Household,Detergents,ClassicChoice,87.63,68.94,707,SUP08
+P128,Household,Detergents,KisanGold,154.77,116.66,573,SUP04
+P129,Household,Pest Control,FarmPride,198.18,151.1,392,SUP02
+P130,Household,Pest Control,ClassicChoice,372.23,299.53,463,SUP04
+P131,groceries,Rice & Grains,FarmPride,95.87,72.4,343,SUP02
+P132,Groceries,Atta & Flours,NovaFresh,213.04,158.57,123,SUP02
+P133,Groceries,Rice & Grains,PureLife,151.6,114.1,341,SUP07
+P134,Groceries,Rice & Grains,FarmPride,50.54,38.68,357,SUP08
+P135,Groceries ,Edible Oils,PureLife,97.47,76.95,134,SUP01
+P136,Groceries,Atta & Flours,NovaFresh,196.04,146.95,338,SUP03
+P137,Frozen,Ready to Eat,Aura,248.78,201.61,64,SUP04
+P138,Frozen,Ready to Eat,DailyBest,191.57,156.02,65,SUP07
+P139,Frozen,Ready to Eat,ClassicChoice,266.29,210.74,105,SUP06
+P140,Frozen,Ice Creams,PureLife,211.05,164.2,80,SUP02
