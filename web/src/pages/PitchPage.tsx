@@ -210,13 +210,13 @@ export const PitchPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-mono font-bold mb-2 border border-emerald-200">
-            🎤 Official Business Pitch Deck & Defense
+            🎤 Official Business Pitch & Diligence
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 font-heading">
             StockSense: 5-Minute Executive Pitch
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Complete presentation slides, word-for-word timed script, and bulletproof judge defense.
+            Complete presentation slides, word-for-word timed script, and stakeholder due diligence.
           </p>
         </div>
 
@@ -250,7 +250,7 @@ export const PitchPage: React.FC = () => {
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            🛡️ Judge Q&A Defense
+            💼 Stakeholder Due Diligence & FAQ
           </button>
         </div>
       </div>
@@ -364,12 +364,12 @@ export const PitchPage: React.FC = () => {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          TAB 3: JUDGE Q&A DEFENSE
+          TAB 3: STAKEHOLDER DUE DILIGENCE & FAQ
           ───────────────────────────────────────────────────────────── */}
       {activeTab === 'qa' && (
         <div className="space-y-4">
           <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-900">
-            <strong>Judge Q&A Strategy:</strong> Give direct, concise answers with real numbers. Never guess. Say "limitations" before a judge asks.
+            <strong>Stakeholder FAQ & Key Answers:</strong> Direct, data-backed answers addressing model architecture, statistical significance, probability calibration, and live pilot deployment.
           </div>
 
           {qa.map((item, idx) => (
